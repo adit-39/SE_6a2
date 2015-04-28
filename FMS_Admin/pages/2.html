@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js" type="text/javascript"></script>
+
+<script>
+				var interval = 1000;  
+	function doAjax() 
+	{
+	// alert("hello");
+		//Using AJAX call to fetch student details from the server.
+		$.ajax({
+		type: 'GET',
+    	url:'http://104.199.153.214/api2/api/admin/deferred',
+		data:'',
+		contentType: "json",
+
+		success: function (data) 
+		{
+			//alert();
+ 
+  
+			//Call the function to display the student details.
+		h1=document.createElement("h1");
+	h1.innerHTML="SOS notification raised from "+data;
+	
+	document.getElementById("bd").appendChild(h1);
+		
+		},
+
+		error: function (xhr, status, error) 
+		{
+		//init();
+			//console.log('Error: ' + error.message);
+		},
+
+            complete: function (data) {
+                    // Schedule the next
+                   // setTimeout(doAjax, interval);
+            }
+    });
+}
+//setTimeout(doAjax, interval);
+
+		
+	
+
+	
+	</script>
+	<body id="bd">
+	<input type="button" value="SOS BUTTON" onclick="setTimeout(doAjax, interval)"/>
+	</body>
+	</html>
