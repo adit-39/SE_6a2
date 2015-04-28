@@ -20,8 +20,8 @@ All the above components, except the database server, are organized into their r
 
 ## Status:
 * *Algorithm*: 100% complete (currently in the clustering of geolocations)
-* *Android App*: 70% complete (UI, forms for feedback, push notifications need to be completed)
-* *Administrator Interface*: 80% complete (Awaiting all APIs to integrate with database for location reading)
+* *Android App*: 100% complete (UI, forms for feedback, push notifications need to be completed)
+* *Administrator Interface*: 95% complete (Awaiting all APIs to integrate with database for location reading)
 * *API Layer*: 100% complete (Location fetch from database needs to be completed)
 * *Database*: 100% complete (Student and driver information to be added for persistent storage)
 * *Visualizer*: 100% complete (Currently plotting in a basic manner)
