@@ -1,6 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/bg"
     android:orientation="vertical" >
 
     <Button
@@ -8,29 +9,71 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:background="@drawable/purple"
         android:layout_marginTop="50dp"
         android:text="Start Service" />
     
     <Button
         android:id="@+id/bStopService"
         android:layout_width="wrap_content"
+        android:background="@drawable/purple"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="15dp"
         android:text="Stop Service" />
+    
+    
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_weight="0.5" >
+
+     <LinearLayout
+         android:layout_height="match_parent"
+         android:layout_width="match_parent"
+         android:weightSum="1"
+         android:orientation="horizontal">
+      
 
     <TextView
         android:id="@+id/tvLat"
+        android:layout_weight="0.5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    
 
     <TextView
         android:id="@+id/tvLong"
         android:layout_width="wrap_content"
+         android:layout_weight="0.5"
         android:layout_height="wrap_content"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" />
+   </LinearLayout>
+    </ScrollView>
+    
+    
+ <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onFeedbackClick"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/green"
+        android:text="FeedBack" />
+ 
+  <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:background="@drawable/red"
+        android:layout_marginTop="15dp"
+        android:onClick="onSOSClick"
+        android:text="SOS" />
 
 </LinearLayout>

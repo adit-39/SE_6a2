@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/bStartService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/purple"
+        android:layout_marginTop="50dp"
+        android:text="Start Service" />
+    
+    <Button
+        android:id="@+id/bStopService"
+        android:layout_width="wrap_content"
+        android:background="@drawable/purple"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:text="Stop Service" />
+    
+    
+
+    
+    
+ <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onFeedbackClick"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/green"
+        android:text="FeedBack" />
+ 
+
+
+</LinearLayout>

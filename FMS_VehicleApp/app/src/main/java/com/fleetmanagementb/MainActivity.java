@@ -1,42 +1,32 @@
-package com.SEProject.fleetmanagement;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
-import org.json.JSONException;
-import org.json.JSONObject;
+package com.fleetmanagementb;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.SEProject.helpers.GPSTracker;
+import com.fleetmanagementb.helpers.GPSTracker;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
 
 public class MainActivity extends Activity {
 	
-	String STUDENT_USN="1PI12CS072";
+	String VEHICLE_ID="PESBus1234";
 	private volatile String Latitude1,Longitude1;
 	public GPSTracker gps;
 	TextView tvLat,tvLong;
@@ -49,13 +39,13 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         Button startService=(Button)findViewById(R.id.bStartService);
         Button stopService=(Button)findViewById(R.id.bStopService);
-        tvLat=(TextView)findViewById(R.id.tvLat);
-        tvLong=(TextView)findViewById(R.id.tvLong);
+        //tvLat=(TextView)findViewById(R.id.tvLat);
+        //tvLong=(TextView)findViewById(R.id.tvLong);
         gettingLoc=false;
         
-        android.app.ActionBar actionBar =  getActionBar();
+       /* android.app.ActionBar actionBar =  getActionBar();
 		ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#c53e2b"));
-		actionBar.setBackgroundDrawable(colorDrawable);
+		actionBar.setBackgroundDrawable(colorDrawable);*/
 		
 		gps = new GPSTracker(this);
 		handler = new Handler();
@@ -69,6 +59,7 @@ public class MainActivity extends Activity {
 				gettingLoc=true;
 			  gl= new getLocation();
 			  gl.execute();
+                startActivity(new Intent(getApplicationContext(),MapsActivity.class));
 			}
 				
 		});
@@ -141,7 +132,7 @@ public class MainActivity extends Activity {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
-				tvLat.append("Latitude   "+Latitude1+"\n");
+			    tvLat.append("Latitude   "+Latitude1+"\n");
 				tvLong.append("Longitude   "+Longitude1+"\n");
 			}
 		});
@@ -208,7 +199,7 @@ public class MainActivity extends Activity {
 	   try{
 		   System.out.println("In insert");
 		   HttpClient client = new DefaultHttpClient();
-		   String url="http://104.199.153.214/api1/api/participant/live/"+STUDENT_USN+"/"+latt+"/"+longt;
+		   String url="http://104.199.153.214/api1/api/vehicle/"+VEHICLE_ID+"/"+latt+"/"+longt;
 		   HttpGet request = new HttpGet(url);
 		   HttpResponse response = client.execute(request);
 
@@ -229,146 +220,9 @@ public class MainActivity extends Activity {
    }
    
    
-   public void insertsos(String latt,String longt)
-   {
-	   try{
-		   System.out.println("SOS Called");
-		   HttpClient client = new DefaultHttpClient();
-		   HttpGet request = new HttpGet("http://104.199.153.214/api1/api/participant/sos/"+STUDENT_USN+"/"+latt+"/"+longt);
-		   HttpResponse response = client.execute(request);
 
-		   // Get the response
-		   BufferedReader rd = new BufferedReader
-		     (new InputStreamReader(response.getEntity().getContent()));
-		       
-		   String line = "";
-		   while ((line = rd.readLine()) != null) {
-		     System.out.println("Response From HttpGet(SOS)"+line);
-		   } 
-		   
-	   }
-	   catch(Exception e)
-	   {
-		    Log.e("HTTPGet","Updating to SOS failed!!");
-	   }
-   }
    
-   
-/*
-    public void insert(String latt,String longt)
-    {
-    	HttpClient httpclient = new DefaultHttpClient();
-	    HttpPost httppost = new HttpPost("http://104.199.153.214/api1/api/participant/");
-	    try {
-	    	
-	    	JSONObject jsonobj = new JSONObject();
-	    	
-	    	try {
-	    		jsonobj.put("usn", STUDENT_USN);
-	    		jsonobj.put("lat", latt);
-		    	jsonobj.put("lon", longt);
-		    	
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	        StringEntity se = new StringEntity(jsonobj.toString());
-	        se.setContentType("application/json;charset=UTF-8");
-	        se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE,"application/json;charset=UTF-8"));
-	        
-	        httppost.setEntity(se);
-	        // Execute HTTP Post Request
-	        HttpResponse response = httpclient.execute(httppost);
-	        Log.d("Http Response:", response.toString());
-	        System.out.println("Updated to Database sucessfully!!");
-	    } catch (ClientProtocolException e) {
-	        // TODO Auto-generated catch block
-	    } catch (IOException e) {
-	        // TODO Auto-generated catch block
-	    }
 
-
-}    
-    
-   */ 
- /*   
-    public void insert(String latt,String longt)
-    {
-    ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
-    
-    nameValuePairs.add(new BasicNameValuePair("usn",STUDENT_USN));
-   	nameValuePairs.add(new BasicNameValuePair("lat",latt));
-   	nameValuePairs.add(new BasicNameValuePair("long",longt));
-    	
-    	try
-    	{
-		HttpClient httpclient = new DefaultHttpClient();
-	      //  HttpPost httppost = new HttpPost("http://mathdemat.comuf.com/insert1.php");
-		   HttpPost httppost = new HttpPost("http://104.199.153.214/api1/api/participant");
-	        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-	        HttpResponse response = httpclient.execute(httppost); 
-	        HttpEntity entity = response.getEntity();
-	        is = entity.getContent();
-	        Log.e("pass 1", "connection success ");
-	        
-	       HttpClient httpclient1 = new DefaultHttpClient();
-	        HttpGet httpget = new HttpGet("http://mathdemat.comuf.com/insert1.php");
-	        ((HttpResponse) httpget).setEntity(new UrlEncodedFormEntity(nameValuePairs));
-	        HttpResponse response1 = httpclient1.execute(httppost); 
-	        HttpEntity entity1 = response1.getEntity();
-	        is = entity1.getContent();
-	        
-	        
-	        
-	}
-        catch(Exception e)
-	{
-        	Log.e("Fail 1", e.toString());
-	    	//Toast.makeText(getApplicationContext(), "Invalid IP Address",
-			//Toast.LENGTH_LONG).show();
-	}     
-        
-        try
-        {
-            BufferedReader reader = new BufferedReader
-			(new InputStreamReader(is,"iso-8859-1"),8);
-            StringBuilder sb = new StringBuilder();
-            while ((line = reader.readLine()) != null)
-	    {
-                sb.append(line + "\n");
-            }
-            is.close();
-            result = sb.toString();
-	    Log.e("pass 2", "connection success ");
-	}
-        catch(Exception e)
-	{
-            Log.e("Fail 2", e.toString());
-	}     
-       
-	try
-	{
-            JSONObject json_data = new JSONObject(result);
-            code=(json_data.getInt("code"));
-			
-            if(code==1)
-            {
-            	//Toast.makeText(getBaseContext(), "Inserted Successfully",
-            			//System.out.println("Inserted Sucessfully");
-            }
-            else
-            {
-			 Toast.makeText(getBaseContext(), "Sorry, Try Again",
-			 Toast.LENGTH_LONG).show();
-            	//System.out.println("Sorry Try again");
-            }
-	}
-	catch(Exception e)
-	{
-            Log.e("Fail 3", e.toString());
-	}
-    }*/
-    
  class insertLoc extends AsyncTask<String, String, String>{
 
 	@Override
@@ -378,7 +232,7 @@ public class MainActivity extends Activity {
 		return null;
 	}
  } 
- 
+/*
  class insertSOS extends AsyncTask<String, String, String>{
 
 	@Override
@@ -387,7 +241,7 @@ public class MainActivity extends Activity {
 		insertsos(Latitude1,Longitude1);
 		return null;
 	}
- }
+ }*/
  
  
  public void onFeedbackClick(View v) 
@@ -398,10 +252,11 @@ public class MainActivity extends Activity {
      startActivity(intent);  
  }
 
- 
+/*
+
  public void onSOSClick(View v) {
      Log.i("Send SMS", "");
-     
+
      new insertSOS().execute();
 
      String phoneNo = "9611836018";
@@ -409,7 +264,7 @@ public class MainActivity extends Activity {
 
      try {
         SmsManager smsManager = SmsManager.getDefault();
-       // smsManager.sendTextMessage(phoneNo, null, message, null, null);
+        //smsManager.sendTextMessage(phoneNo, null, message, null, null);
         Toast.makeText(getApplicationContext(), "SMS sent.",
         Toast.LENGTH_LONG).show();
      } catch (Exception e) {
@@ -419,6 +274,7 @@ public class MainActivity extends Activity {
         e.printStackTrace();
      }
   }
+*/
 
 
   

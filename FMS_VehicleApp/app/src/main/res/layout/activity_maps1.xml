@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+
+    <fragment
+        android:layout_height="300dp" android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_below="@id/map"
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_weight="0.5" >
+
+        <LinearLayout
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:weightSum="1"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/tvLat1"
+                android:layout_weight="0.5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@android:color/black"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+
+            <TextView
+                android:id="@+id/tvLong1"
+                android:layout_width="wrap_content"
+                android:layout_weight="0.5"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+    </ScrollView>
+
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:orientation="horizontal"
+    android:layout_below="@id/scrollView1"
+    android:layout_height="100dp">
+
+    <Button
+        android:id="@+id/bStartService"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/purple"
+        android:layout_marginTop="5dp"
+        android:text="Real Time Tracking" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="40dp"
+        android:onClick="onFeedbackClick"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/green"
+        android:text="FeedBack" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
+
+
+<!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:id="@+id/map"
+    tools:context="com.fleetmanagementb.MapsActivity"
+    android:name="com.google.android.gms.maps.SupportMapFragment" />-->
